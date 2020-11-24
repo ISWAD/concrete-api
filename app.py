@@ -13,7 +13,13 @@ CORS(app)
 def index():
 	data = request.get_json()
 	api_vec = data["ApiVec"]
-	result = api_vec
+	model_vec = []
+	for num in api_vec:
+		if num == ".":
+			model_vec.append(0)
+		else:
+			model_vec.append(float(num))
+	result = np.round(model.predict([model_vec])[0], 2)
 	return jsonify(result = f"{result}")
 
 if __name__ == "__main__":
